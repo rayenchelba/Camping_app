@@ -1,3 +1,5 @@
+import 'package:camping_app/views/DetailView.dart';
+
 import '../classes/recmdation.dart';
 import 'package:flutter/material.dart';
 import '../classes/camps.dart';
@@ -35,8 +37,8 @@ class _HomepageState extends State<Homepage> {
   @override
   void dispose() {
     // TODO: implement dispose
-    super.dispose();
     scrolcrtl.dispose();
+    super.dispose();
   }
   @override
   Widget build(BuildContext context) {
@@ -157,7 +159,6 @@ class _HomepageState extends State<Homepage> {
                                 ),
                               ),
                               const SizedBox(height: 20),
-                              // Horizontal list of camps
                               SizedBox(
                                 height: 120,
                                 child: ListView.separated(
@@ -187,7 +188,6 @@ class _HomepageState extends State<Homepage> {
                                   },
                                 ),
                               ),
-                              // Recommendation Section Header
                               const Padding(
                                 padding: EdgeInsets.only(
                                     left: 8, bottom: 15, top: 10),
@@ -197,78 +197,80 @@ class _HomepageState extends State<Homepage> {
                                       fontWeight: FontWeight.bold, fontSize: 18),
                                 ),
                               ),
-                              // Vertical list of recommendation cards
                               ListView.separated(
                                 shrinkWrap: true,
                                 physics: const NeverScrollableScrollPhysics(),
                                 itemCount: rc.length,
                                 itemBuilder: (context, index) {
-                                  return Card(
-                                    color: Colors.white,
-                                    clipBehavior: Clip.antiAlias,
-                                    elevation: 2,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16),
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Image.asset(rc[index].path),
-                                        Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              20, 10, 20, 10),
-                                          child: Row(
-                                            children: [
-                                              // Date Column
-                                              Column(
-                                                children: [
-                                                  Container(
-                                                    padding:
-                                                    const EdgeInsets.all(5),
-                                                    decoration: BoxDecoration(
-                                                      color: const Color(0xff89AC46)
-                                                          .withOpacity(0.7),
-                                                    ),
-                                                    child: Text(
-                                                      rc[index].day,
-                                                      style: const TextStyle(
-                                                        fontSize: 15,
+                                  return GestureDetector(
+                                    onTap: ()=>click(index),
+                                    child: Card(
+                                      color: Colors.white,
+                                      clipBehavior: Clip.antiAlias,
+                                      elevation: 2,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Image.asset(rc[index].path),
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                20, 10, 20, 10),
+                                            child: Row(
+                                              children: [
+                                                // Date Column
+                                                Column(
+                                                  children: [
+                                                    Container(
+                                                      padding:
+                                                      const EdgeInsets.all(5),
+                                                      decoration: BoxDecoration(
+                                                        color: const Color(0xff89AC46)
+                                                            .withOpacity(0.7),
+                                                      ),
+                                                      child: Text(
+                                                        rc[index].day,
+                                                        style: const TextStyle(
+                                                          fontSize: 15,
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  Text(
-                                                    rc[index].month,
-                                                    style: const TextStyle(
-                                                      fontSize: 12,
+                                                    Text(
+                                                      rc[index].month,
+                                                      style: const TextStyle(
+                                                        fontSize: 12,
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(width: 20),
-                                              // Details Column
-                                              Column(
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    rc[index].title,
-                                                    style: const TextStyle(
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                      FontWeight.bold,
+                                                  ],
+                                                ),
+                                                const SizedBox(width: 20),
+                                                // Details Column
+                                                Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      rc[index].title,
+                                                      style: const TextStyle(
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                        FontWeight.bold,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  Text(
-                                                    rc[index].location,
-                                                    style: const TextStyle(
-                                                      color: Colors.grey,
+                                                    Text(
+                                                      rc[index].location,
+                                                      style: const TextStyle(
+                                                        color: Colors.grey,
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   );
                                 },
@@ -317,9 +319,8 @@ class _HomepageState extends State<Homepage> {
           ],
         ),
       ),
-      // Floating Action Button (Map)
       floatingActionButton: AnimatedSwitcher(
-        duration: Duration(seconds: 2),
+        duration: const Duration(seconds: 20),
         child:btn ? FloatingActionButton.extended(
           onPressed: () {},
           shape: RoundedRectangleBorder(
@@ -339,7 +340,8 @@ class _HomepageState extends State<Homepage> {
               ),
             ],
           ),
-        ) :FloatingActionButton(
+        )
+            :FloatingActionButton(
           onPressed: () {},
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
@@ -354,5 +356,8 @@ class _HomepageState extends State<Homepage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
+  }
+  click(int index){
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>Detailview(p: rc[index])));
   }
 }
