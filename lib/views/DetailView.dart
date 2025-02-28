@@ -54,6 +54,28 @@ class _DetailviewState extends State<Detailview> {
                     ),
                   ),
                 ),
+                Positioned(
+                  top: 20,
+                  left:15,
+                  right: 15,
+                  child: Row(children: [
+                    CircleAvatar(
+                        radius:24,
+                        backgroundColor: Colors.white,
+                        child: Icon(Icons.keyboard_arrow_left,size: 30,)),
+                    SizedBox(
+                      width:MediaQuery.of(context).size.width/2 ,),
+                    CircleAvatar(
+                        radius:24,
+                        backgroundColor: Colors.white,
+                        child: Icon(Icons.bookmark_outline_sharp,size: 30,)),
+                    SizedBox(width: 15,),
+                    CircleAvatar(
+                        radius:24,
+                        backgroundColor: Colors.white,
+                        child: Icon(Icons.share_outlined,size:30,))
+                  ],),
+                ),
               ],
             );
           }),
@@ -297,24 +319,33 @@ class _DetailviewState extends State<Detailview> {
         ),
       ),
       bottomNavigationBar: Container(
-        margin: EdgeInsets.only(top: 30),
-        child: NavigationBar(
-          backgroundColor: Colors.white,
-          destinations: [
-            FilledButton(
-              style: FilledButton.styleFrom(
-                backgroundColor: Color(0xff677E32),
+        color: Colors.white,
+        padding: const EdgeInsets.fromLTRB(20,15,20,15),
+        child: Row(
+          children: [
+            Expanded(
+              child: FilledButton(
+                style: FilledButton.styleFrom(
+                  backgroundColor: Color(0xff677E32),
+                ),
+                onPressed: () {},
+                child: Padding(
+
+                    padding:EdgeInsets.only(top: 15,bottom: 15),
+                    child: Text('Reserve a spot')),
               ),
-              child: const Text('Reserve a spot'),
-              onPressed: () {},
             ),
-            const NavigationDestination(
-              icon: Icon(Icons.calendar_month),
-              label: '',
+            SizedBox(width: 10,),
+            FloatingActionButton(
+              backgroundColor: Colors.white,
+              shape: CircleBorder(),
+              onPressed: () {},
+              child: Icon(Icons.calendar_today_outlined),
             ),
           ],
         ),
       ),
+
     );
   }
 }

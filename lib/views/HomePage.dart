@@ -1,3 +1,4 @@
+import 'package:camping_app/views/Add.dart';
 import 'package:camping_app/views/DetailView.dart';
 
 import '../classes/recmdation.dart';
@@ -306,7 +307,9 @@ class _HomepageState extends State<Homepage> {
               backgroundColor: Color(0xff677E32),
               child: const Icon(Icons.add),
               shape: const CircleBorder(),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>Addch()));
+              },
             ),
             const NavigationDestination(
               icon: Icon(Icons.chat_outlined),
